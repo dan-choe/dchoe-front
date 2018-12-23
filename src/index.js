@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Wrapper from './Wrapper';
+import Clock from './Clock';
 
 // const App = () => {
 //     return <div>function component</div>
@@ -8,11 +10,12 @@ import ReactDOM from 'react-dom';
 
 class App extends React.Component {
 
-    constructor(props){
-        super(props);
+    state = { latitude: null, errorMessage: '' };
 
-        this.state = { latitude: null, errorMessage: '' };
-    }
+    // constructor(props){
+    //     super(props);  
+    //   this.state = { latitude: null, errorMessage: '' };
+    // }
 
     // dataloading
     componentDidMount(){
@@ -30,7 +33,11 @@ class App extends React.Component {
         if(!this.state.latitude && this.state.errorMessage){
             return <div>Error: {this.state.errorMessage}</div>
         }else if(this.state.latitude && !this.state.errorMessage){
-            return <div>Latitude: {this.state.latitude}</div>
+            // return <div>Latitude: {this.state.latitude}</div>
+            // Passing State as props
+            return (
+                <Wrapper lat={this.state.latitude}><Clock /></Wrapper>
+            );
         }
         return <div>Loading...</div>
     }
