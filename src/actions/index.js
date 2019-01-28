@@ -2,6 +2,15 @@
 import jsonPlaceholder from '../API/jsonPlaceholder';
 import _ from 'lodash';
 
+
+export const toggle_theme = theme => {
+    return {
+        type: 'TOGGLE_THEME',
+        payload: theme
+    }
+}
+
+
 export const selectSong = song => {
     return {
         type: 'SONG_SELECTED',
