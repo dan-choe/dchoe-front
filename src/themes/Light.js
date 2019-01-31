@@ -1,10 +1,9 @@
 export default {
     palette: {
         primary: {
-            light: '#fca47e', // LightOrange fca47e
-            main: '#fca47e', // Orange ff5a39
-            dark: '#e85a4f', // DarkOrange
-            constrastText: '#cc0000'
+            light: '#fca47e',
+            main: '#ffffff',
+            dark: '#242733',
         },
         secondary: {
             light: '#a6ddde',
@@ -15,7 +14,40 @@ export default {
             light: '#f7f7b4',
             main: '#f0d600',
             dark: '#000000',
-        }
+        },
+        temp: {
+            light: '#e6ecf0',
+            main: '#326bc6',
+            dark: '#252838',
+        },
+        orange: {
+            light: '#fca47e',
+            main: '#ff5a39',
+            dark: '#e85a4f',
+        },
+        blue: {
+            light: '#a6ddde',
+            pastel: '#4775b4',
+            main: '#326bc6',
+            main2: '#2b66e3',
+            dark: '#252838',
+            darkGrey: '#242733',
+        },
+        yellow: {
+            light: '#f7f7b4',
+            main: '#f0d600',
+            dark: '#f0d600',
+        },
+        red: {
+            light: '#ed0d32',
+            main: '#ed0d32',
+            dark: '#ed0d32',
+        },
+        grey: {
+            light: '#e6e6e6',
+            main: '#e6e6e6',
+            dark: '#e6e6e6',
+        },
     },
     status: {
         danger: '#f0d600',
@@ -24,16 +56,3 @@ export default {
         useNextVariants: true,
     }
 }
-
-// red: ed0d32
-// grey e6e6e6
-
-// light yellow f7f7b4
-// yellow f0d600
-
-// blue1 326bc6
-// blue2 2b66e3
-// lightblue a6ddde
-// pastelblue 4775b4
-// darkblue 252838
-// darkgreyblue 242733

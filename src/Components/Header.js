@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import classNames from 'classnames';
 
@@ -53,17 +54,30 @@ const styles = theme => ({
     primaryDark: {
         color: theme.palette.primary.dark
     },
+    marginRight: {
+        marginRight: '24px'
+    },
+    sizeEighty: {
+        scale: .8
+    },
+    bgLight: {
+        backgroundColor: theme.palette.temp.main
+    },
 
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        [theme.breakpoints.up('sm')]: {
-            width: `calc(100% - ${drawerWidth}px)`,
-          },
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+        [theme.breakpoints.down('md')]: {
+            width: '100%',
+            marginLeft: 0,
+        },
+        boxShadow: 'none',
+        borderBottom: '1px solid #d2d2d2',
     },
 
     appBarShift: {
         marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -79,14 +93,18 @@ const styles = theme => ({
 
     drawerPaper: {
         width: drawerWidth,
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.dark,
     },
+    
     content: {
         flexGrow: 1,
         padding: theme.spacing.unit * 3,
     },
 
     toolbar: {
-        paddingRight: 24
+        paddingRight: 24,
+        maxHeight: 48,
     },
     toolbarIcon: {
         display: 'flex',
@@ -97,7 +115,10 @@ const styles = theme => ({
     },
     menuButton: {
         marginLeft: 12,
-        marginRight: 36
+        marginRight: 36,
+        [theme.breakpoints.up('lg')]: {
+            display: 'none'
+        },
     },
     hide: {
         display: 'none'
@@ -128,8 +149,8 @@ class Header extends React.Component {
                 <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} />
+                    <ListItemIcon className={classes.primaryLight}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                    <ListItemText primary={text} classes={{primary: classes.primaryLight }}/>
                     </ListItem>
                 ))}
                 </List>
@@ -137,8 +158,8 @@ class Header extends React.Component {
                 <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
                     <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} />
+                    <ListItemIcon className={classes.primaryLight}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                    <ListItemText primary={text} classes={{primary: classes.primaryLight }}/>
                     </ListItem>
                 ))}
                 </List>
@@ -148,59 +169,51 @@ class Header extends React.Component {
 
         return (
             <div className="Header">
-
-               
-                        
-                {/* <AppBar position="static" className={classNames(classes.AppBar)}> */}
-                <AppBar position="static">
-                    <Toolbar variant="dense">
-                        {/* <IconButton onClick={()=> this.props.clickedMenu(this.props.isOpen)} className={classes.menuButton} color="inherit">  */}
-
-                        
-                        
-                        {/* <IconButton className={classes.menuButton} color="inherit"> 
-                            <MenuIcon />
-                        </IconButton> */}
-                        
-                        <Toolbar>
+                                     
+                <AppBar position="static" className={
+                    classNames(classes.appBar, this.state.mobileOpen? classes.appBarShift : '')}>
+                    <Toolbar variant="dense" className={classes.toolbar}>
+                      
                             <IconButton
                             color="inherit"
                             aria-label="Open drawer"
                             onClick={this.handleDrawerToggle}
                             className={classes.menuButton}
                             >
-                            <MenuIcon />
+                                <MenuIcon />
                             </IconButton>
-                            <Typography variant="h6" color="inherit" noWrap>
-                            Responsive drawer
-                            </Typography>
-                        </Toolbar>
 
+                            <Link to="/">
+                                <Typography variant="h6" color="inherit" noWrap>
+                                A
+                                </Typography>                            
+                            </Link>
 
-                        {/* <Typography variant="h6" color="inherit" className={classes.grow}>
-                            About
-                        </Typography>
-                        <Typography variant="h6" color="inherit" className={classes.grow}>
-                            Projects
-                        </Typography>
-                        <Typography variant="h6" color="inherit" className={classes.grow}>
-                            Blog
-                        </Typography>
-                        <Typography variant="h6" color="inherit" className={classes.grow}>
-                            Contact
-                        </Typography> */}
+                            <Link to="/Page1">
+                                <Typography variant="h6" color="inherit" noWrap>
+                                B
+                                </Typography>                            
+                            </Link>
+
+                            <Link to="/Page2">
+                                <Typography variant="h6" color="inherit" noWrap>
+                                C
+                                </Typography>                            
+                            </Link>
 
                         <div className={classes.grow} />
                         <div className={classes.search}>
                         
                         </div>
 
-                        <IconButton color="inherit">
-                            <MailIcon />
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <AccountCircle />
-                        </IconButton>
+                        <div className={classes.marginRight}>
+                            <IconButton color="inherit">
+                                <MailIcon />
+                            </IconButton>
+                            <IconButton color="inherit">
+                                <AccountCircle />
+                            </IconButton>
+                        </div>
 
                         <Icon className={classNames('far fa-sun ') + classes.primaryLight} />
                         <Swich onClick={() => this.props.toggleTheme() }></Swich>

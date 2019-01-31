@@ -1,10 +1,9 @@
 export default {
     palette: {
         primary: {
-            light: '#fca47e',
+            light: '#ffffff',
             main: '#242733',
-            dark: '#4775b4',
-            constrastText: '#cc0000'
+            dark: '#a6ddde',
         },
         secondary: {
             light: '#a6ddde',
@@ -15,38 +14,45 @@ export default {
             light: '#f7f7b4',
             main: '#f0d600',
             dark: '#000000',
-        }
+        },
+        temp: {
+            light: '#e6ecf0',
+            main: '#ffffff',
+            dark: '#000000',
+        },
+        orange: {
+            light: '#fca47e',
+            main: '#ff5a39',
+            dark: '#e85a4f',
+        },
+        blue: {
+            light: '#a6ddde',
+            pastel: '#4775b4',
+            main: '#326bc6',
+            main2: '#2b66e3',
+            dark: '#252838',
+            darkGrey: '#242733',
+        },
+        yellow: {
+            light: '#f7f7b4',
+            main: '#f0d600',
+            dark: '#f0d600',
+        },
+        red: {
+            light: '#ed0d32',
+            main: '#ed0d32',
+            dark: '#ed0d32',
+        },
+        grey: {
+            light: '#e6e6e6',
+            main: '#e6e6e6',
+            dark: '#e6e6e6',
+        },
     },
     status: {
-        danger: '#2b66e3',
+        danger: '#f0d600',
     },
     typography: {
         useNextVariants: true,
-    },
-    overrides: {
-        MuiButton: {
-            text: {
-                background: 'linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%)',
-                borderRadius: 3,
-                border: 0,
-                color: 'white',
-                height: 24,
-                padding: '0 30px',
-                boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-            },
-        },
     }
 }
-
-// red: ed0d32
-// grey e6e6e6
-
-// light yellow f7f7b4
-// yellow f0d600
-
-// blue1 326bc6
-// blue2 2b66e3
-// lightblue a6ddde
-// pastelblue 4775b4
-// darkblue 252838
-// darkgreyblue 242733
