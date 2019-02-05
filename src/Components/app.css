@@ -1,0 +1,16 @@
+.contentWrapper {
+    padding: 40px;
+    background-color: #e6ecf0;
+}
+
+ol {
+    display: flex;
+    list-style-type: decimal-leading-zero;   
+
+
+}
+
+ol li {
+    float: left;
+    padding: 0px 40px 0px 0px;
+}

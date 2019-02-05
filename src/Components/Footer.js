@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -26,6 +30,12 @@ const styles = theme => ({
     },
 
     content: {
+        display: 'flex',
+        flexGrow: 1,
+        minHeight: '100px',
+        alignContent: 'center',
+        justifyContent: 'center',
+
         zIndex: theme.zIndex.drawer + 1,
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
@@ -34,7 +44,9 @@ const styles = theme => ({
             marginLeft: 0,
         },
         boxShadow: 'none',
-        borderBottom: '1px solid #d2d2d2',
+        borderTop: '1px solid #d2d2d2',
+        padding: '20px',
+        color: theme.palette.temp.main,
     },
 
     contentShift: {
@@ -55,7 +67,21 @@ class Footer extends React.Component {
 
         return (
             <div className={classNames(classes.bgLight, classes.content, this.props.mobileOpen? classes.contentShift : '')}>
-                Footer
+                © 2019 dchoe, Designed & Built by Dan Choe
+
+                {/* <ul>
+                    <i class="fab fa-github"></i>
+                    <i class="fab fa-linkedin"></i>
+                </ul> */}
+                
+                <div>
+                    <Icon className={classNames('fab fa-github')} />
+                    <Icon className={classNames('fab fa-linkedin')} />
+                </div>
+
+                
+                
+
             </div>
         );
     }

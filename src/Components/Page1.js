@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import Typography from '@material-ui/core/Typography';
 
 const drawerWidth = 240;
 
@@ -33,8 +34,8 @@ const styles = theme => ({
             width: '100%',
             marginLeft: 0,
         },
-        boxShadow: 'none',
-        borderBottom: '1px solid #d2d2d2',
+        // boxShadow: 'none',
+        // borderBottom: '1px solid #d2d2d2',
     },
 
     contentShift: {
@@ -55,7 +56,14 @@ class Page1 extends React.Component {
 
         return (
             <div className={classNames(classes.bgLight, classes.content, this.props.mobileOpen? classes.contentShift : '')}>
-                Page1
+                <Typography paragraph>
+                    <h4>Hi, my name is</h4>
+                    <h1>Dan Choe.</h1>
+                    <h4>I build things for solving problems.</h4>
+                    <p>I'm a software engineer based in New Jersey specializing in developing 
+                        (and occasionally designing) exceptional, high-quality websites and applications. 
+                        Currently working at RBC as a Fullstack Engineer.</p>
+                </Typography>
             </div>
         );
     }

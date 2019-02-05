@@ -45,6 +45,9 @@ const styles = theme => ({
         display: 'flex',
         flexGrow: 1
     },
+    flowRowDirection: {
+        flexDirection: 'row',
+    },
     grow: {
         flexGrow: 1
     },
@@ -122,7 +125,16 @@ const styles = theme => ({
     },
     hide: {
         display: 'none'
-    }
+    },
+
+    // A::after {
+    //     content: "";
+    //     display: block;
+    //     width: 1px;
+    //     height: 90px;
+    //     background-color: rgb(168, 178, 209);
+    //     margin: 0px auto;
+    // }
 });
 
 
@@ -147,16 +159,18 @@ class Header extends React.Component {
                 <div className={classes.toolbar} />
                 <Divider />
                 <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                    <ListItemIcon className={classes.primaryLight}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} classes={{primary: classes.primaryLight }}/>
-                    </ListItem>
+                {['About', 'Experience', 'Projects', 'Contact'].map((text, index) => (
+                    <Link to={"/" + text}>
+                        <ListItem button key={text}>
+                        <ListItemIcon className={classes.primaryLight}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemText primary={text} classes={{primary: classes.primaryLight }}/>
+                        </ListItem>
+                    </Link>
                 ))}
                 </List>
                 <Divider />
                 <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                {['All notes', 'Note1', 'Note2'].map((text, index) => (
                     <ListItem button key={text}>
                     <ListItemIcon className={classes.primaryLight}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                     <ListItemText primary={text} classes={{primary: classes.primaryLight }}/>
@@ -174,32 +188,69 @@ class Header extends React.Component {
                     classNames(classes.appBar, this.state.mobileOpen? classes.appBarShift : '')}>
                     <Toolbar variant="dense" className={classes.toolbar}>
                       
-                            <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerToggle}
-                            className={classes.menuButton}
-                            >
-                                <MenuIcon />
-                            </IconButton>
+                        <IconButton
+                        color="inherit"
+                        aria-label="Open drawer"
+                        onClick={this.handleDrawerToggle}
+                        className={classes.menuButton}
+                        >
+                            <MenuIcon />
+                        </IconButton>
 
-                            <Link to="/">
-                                <Typography variant="h6" color="inherit" noWrap>
-                                A
-                                </Typography>                            
-                            </Link>
+                        {/* <div className={classNames(classes.root, classes.flowRowDirection)}> */}
+                        <div>
+                            <ol>
+                                <li>
+                                    <Link to="/">
+                                        <Typography variant="h6" color="inherit" noWrap>
+                                        Home
+                                        </Typography>                            
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/About">
+                                        <Typography variant="h6" color="inherit" noWrap>
+                                        About
+                                        </Typography>                            
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/Experience">
+                                        <Typography variant="h6" color="inherit" noWrap>
+                                        Experience
+                                        </Typography>                            
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/Projects">
+                                        <Typography variant="h6" color="inherit" noWrap>
+                                        Projects
+                                        </Typography>                            
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/Contact">
+                                        <Typography variant="h6" color="inherit" noWrap>
+                                        Contact
+                                        </Typography>                            
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/Page2">
+                                        <Typography variant="h6" color="inherit" noWrap>
+                                        Page2
+                                        </Typography>                            
+                                    </Link>
+                                </li>
+                            </ol>
+                        </div>
 
-                            <Link to="/Page1">
-                                <Typography variant="h6" color="inherit" noWrap>
-                                B
-                                </Typography>                            
-                            </Link>
+                            
 
-                            <Link to="/Page2">
-                                <Typography variant="h6" color="inherit" noWrap>
-                                C
-                                </Typography>                            
-                            </Link>
+                            
+                            
+
+                            
 
                         <div className={classes.grow} />
                         <div className={classes.search}>
@@ -207,12 +258,15 @@ class Header extends React.Component {
                         </div>
 
                         <div className={classes.marginRight}>
-                            <IconButton color="inherit">
+                            {/* <IconButton color="inherit">
                                 <MailIcon />
-                            </IconButton>
-                            <IconButton color="inherit">
+                            </IconButton> */}
+                            {/* <IconButton color="inherit">
                                 <AccountCircle />
-                            </IconButton>
+                            </IconButton> */}
+                            <Button variant="outlined" color="secondary">
+                                Resume
+                            </Button>
                         </div>
 
                         <Icon className={classNames('far fa-sun ') + classes.primaryLight} />

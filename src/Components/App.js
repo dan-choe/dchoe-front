@@ -12,6 +12,13 @@ import Page1 from './Page1';
 import Page2 from './Page2';
 import Footer from './Footer';
 
+import About from './About';
+import Experience from './Experience';
+import Projects from './Projects';
+import Contact from './Contact';
+
+import './app.css';
+
 const theme_light = createMuiTheme(Light); 
 const theme_dark = createMuiTheme(Dark); 
 
@@ -36,7 +43,27 @@ const routes = [
         path: "/user/:username",
         sidebar: () => <div>temp</div>,
         main: () => <div>temp</div>
-    }
+    },
+    {
+        path: "/About",
+        sidebar: About,
+        main: () => <div>Page1</div>
+    },
+    {
+        path: "/Experience",
+        sidebar: Experience,
+        main: () => <div>Experience</div>
+    },
+    {
+        path: "/Projects",
+        sidebar: Projects,
+        main: () => <div>Projects</div>
+    },
+    {
+        path: "/Contact",
+        sidebar: Contact,
+        main: () => <div>Contact</div>
+    },
 ];
 
 
@@ -47,17 +74,19 @@ class App extends React.Component {
                 <Router>
                     <div>
                         <Header />
-                        {
-                            routes.map((route, index) => (
-                                <Route 
-                                    key={index}
-                                    path={route.path}
-                                    exact={route.exact}
-                                    component={route.sidebar}                                
-                                />
-                            ))
-                        }
-                        <Route path="/page2" render={()=> <Page2 theme='0' />} />
+                        <div className="contentWrapper">
+                            {
+                                routes.map((route, index) => (
+                                    <Route 
+                                        key={index}
+                                        path={route.path}
+                                        exact={route.exact}
+                                        component={route.sidebar}                                
+                                    />
+                                ))
+                            }
+                            <Route path="/page2" render={()=> <Page2 theme='0' />} />
+                        </div>
                         <Footer />
                     </div>
                 </Router>              
