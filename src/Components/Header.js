@@ -18,13 +18,18 @@ import Button from '@material-ui/core/Button';
 import Swich from '@material-ui/core/Switch';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-// import IconBase from '@material-ui/core/IconBase';
+import InputBase from '@material-ui/core/InputBase';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import MailIcon from '@material-ui/icons/Mail';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import FaceIcon from '@material-ui/icons/Face';
+import ListIcon from '@material-ui/icons/List';
+import CodeIcon from '@material-ui/icons/Code';
+import FolderIcon from '@material-ui/icons/Folder';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -35,10 +40,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
+import logo_bk from '../assets/logo-bk.png';
+import logo_w from '../assets/logo-w.png';
+import { toggle_theme, toggle_sidebar } from '../actions';
 
-import { toggle_theme } from '../actions';
-
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const styles = theme => ({
     root: {
@@ -52,7 +58,8 @@ const styles = theme => ({
         flexGrow: 1
     },
     primaryLight: {
-        color: theme.palette.primary.dark
+        color: theme.palette.primary.dark,
+        // fontSize: '.9rem',
     },
     primaryDark: {
         color: theme.palette.primary.dark
@@ -78,7 +85,6 @@ const styles = theme => ({
         boxShadow: 'none',
         borderBottom: '1px solid #d2d2d2',
     },
-
     appBarShift: {
         marginLeft: drawerWidth,
         transition: theme.transitions.create(['width', 'margin'], {
@@ -100,6 +106,12 @@ const styles = theme => ({
         color: theme.palette.primary.dark,
     },
     
+    logo: {
+        width: '20%',
+        paddingTop: 20,
+        paddingBottom: 20,
+    },
+
     content: {
         flexGrow: 1,
         padding: theme.spacing.unit * 3,
@@ -135,6 +147,47 @@ const styles = theme => ({
     //     background-color: rgb(168, 178, 209);
     //     margin: 0px auto;
     // }
+    search: {
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        '&:hover': {
+          backgroundColor: fade(theme.palette.common.white, 0.25),
+        },
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+          marginLeft: theme.spacing.unit,
+          width: 'auto',
+        },
+      },
+      searchIcon: {
+        width: theme.spacing.unit * 9,
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      inputRoot: {
+        color: 'inherit',
+        width: '100%',
+      },
+      inputInput: {
+        paddingTop: theme.spacing.unit,
+        paddingRight: theme.spacing.unit,
+        paddingBottom: theme.spacing.unit,
+        paddingLeft: theme.spacing.unit * 10,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+          width: 120,
+          '&:focus': {
+            width: 200,
+          },
+        },
+      },
 });
 
 
@@ -144,25 +197,43 @@ class Header extends React.Component {
     state = {
         open: false,
         mobileOpen: false,
-      };
+    };
 
-      handleDrawerToggle = () => {
+    handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }));
-      };
+    };
+
+    getIcon(idx){
+        switch(idx){
+            case 0: return <FaceIcon style={{ fontSize: 20 }} />
+            case 1: return <ListIcon style={{ fontSize: 20 }} />
+            case 2: return <CodeIcon style={{ fontSize: 20 }} />
+            case 3: return <MailIcon style={{ fontSize: 20 }} />
+        }
+    }
 
     render(){
+        
+        console.log(this.state);
 
         const { classes, theme } = this.props;
 
         const drawer = (
             <div>
-                <div className={classes.toolbar} />
-                <Divider />
+                <Link to={"/"}>
+                    <ListItem button>
+                        <img src={logo_bk} className={classes.logo}/> 
+                        {/* <ListItemText primary="" classes={{primary: classes.primaryLight }} /> */}
+                    </ListItem>                
+                </Link>
+                {/* <Divider /> */}
                 <List>
                 {['About', 'Experience', 'Projects', 'Contact'].map((text, index) => (
                     <Link to={"/" + text}>
                         <ListItem button key={text}>
-                        <ListItemIcon className={classes.primaryLight}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemIcon className={classes.primaryLight}>
+                            {this.getIcon(index)}
+                        </ListItemIcon>
                         <ListItemText primary={text} classes={{primary: classes.primaryLight }}/>
                         </ListItem>
                     </Link>
@@ -170,11 +241,13 @@ class Header extends React.Component {
                 </List>
                 <Divider />
                 <List>
-                {['All notes', 'Note1', 'Note2'].map((text, index) => (
-                    <ListItem button key={text}>
-                    <ListItemIcon className={classes.primaryLight}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} classes={{primary: classes.primaryLight }}/>
-                    </ListItem>
+                {['Notes/List', 'Notes/View', 'Notes/Post'].map((text, index) => (
+                    <Link to={"/" + text}>
+                        <ListItem button key={text}>
+                        <ListItemIcon className={classes.primaryLight}>{index === 0 ? <InboxIcon style={{ fontSize: 20 }}/> : <FolderIcon style={{ fontSize: 20 }} />}</ListItemIcon>
+                        <ListItemText primary={text} classes={{primary: classes.primaryLight }}/>
+                        </ListItem>
+                    </Link>
                 ))}
                 </List>
             </div>
@@ -185,72 +258,75 @@ class Header extends React.Component {
             <div className="Header">
                                      
                 <AppBar position="static" className={
-                    classNames(classes.appBar, this.state.mobileOpen? classes.appBarShift : '')}>
+                    // classNames(classes.appBar, this.state.mobileOpen? classes.appBarShift : '')}>
+                    classNames(classes.appBar, this.props.sidebarReducer.isSidebarOpen? classes.appBarShift : '')}>
                     <Toolbar variant="dense" className={classes.toolbar}>
                       
                         <IconButton
                         color="inherit"
                         aria-label="Open drawer"
-                        onClick={this.handleDrawerToggle}
+                        // onClick={this.handleDrawerToggle}
+                        onClick={() => this.props.toggleSidebar()}
                         className={classes.menuButton}
                         >
                             <MenuIcon />
                         </IconButton>
 
                         {/* <div className={classNames(classes.root, classes.flowRowDirection)}> */}
-                        <div>
-                            <ol>
+                        <div className="header2">
+                            <ul>
                                 <li>
                                     <Link to="/">
-                                        <Typography variant="h6" color="inherit" noWrap>
+                                        <Typography variant="h6" noWrap>
                                         Home
                                         </Typography>                            
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to="/About">
-                                        <Typography variant="h6" color="inherit" noWrap>
+                                        <Typography variant="h6" noWrap>
                                         About
                                         </Typography>                            
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to="/Experience">
-                                        <Typography variant="h6" color="inherit" noWrap>
+                                        <Typography variant="h6" noWrap>
                                         Experience
                                         </Typography>                            
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to="/Projects">
-                                        <Typography variant="h6" color="inherit" noWrap>
+                                        <Typography variant="h6" noWrap>
                                         Projects
                                         </Typography>                            
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to="/Contact">
-                                        <Typography variant="h6" color="inherit" noWrap>
+                                        <Typography variant="h6" noWrap>
                                         Contact
                                         </Typography>                            
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link to="/Page2">
-                                        <Typography variant="h6" color="inherit" noWrap>
-                                        Page2
-                                        </Typography>                            
-                                    </Link>
-                                </li>
-                            </ol>
+                                
+                            </ul>
                         </div>
 
-                            
-
-                            
-                            
-
-                            
+                        
+                        <div className={classes.search}>
+                            <div className={classes.searchIcon}>
+                            <SearchIcon />
+                            </div>
+                            <InputBase
+                            placeholder="Search…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            />
+                        </div>
 
                         <div className={classes.grow} />
                         <div className={classes.search}>
@@ -271,7 +347,7 @@ class Header extends React.Component {
 
                         <Icon className={classNames('far fa-sun ') + classes.primaryLight} />
                         <Swich onClick={() => this.props.toggleTheme() }></Swich>
-                        <Icon className={classNames('far fa-moon ') + classes.primaryDark} />
+                        <Icon className={classNames('far fa-moon ') + classes.primaryLight} />
                     </Toolbar>
                 </AppBar>
                 
@@ -283,8 +359,8 @@ class Header extends React.Component {
                             container={this.props.container}
                             variant="temporary"
                             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                            open={this.state.mobileOpen}
-                            onClose={this.handleDrawerToggle}
+                            open={this.props.sidebarReducer.isSidebarOpen}
+                            onClose={() => this.props.toggleSidebar()}
                             classes={{
                                 paper: classes.drawerPaper,
                             }}
@@ -292,7 +368,6 @@ class Header extends React.Component {
                         {drawer}
                         </Drawer>
                     </Hidden>
-
                     <Hidden mdDown implementation="css">
                         <Drawer
                             classes={{
@@ -323,6 +398,9 @@ const mapDispatchToProps = dispatch => {
         // clickedMenu: (isOpen) => {
         //     dispatch(sideBarToggle(isOpen))
         // },
+        toggleSidebar: () => {
+            dispatch(toggle_sidebar())
+        },
 
         toggleTheme: () => {
             dispatch(toggle_theme())

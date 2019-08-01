@@ -4,12 +4,6 @@ class Wrapper extends React.Component {
 
     state = { searchWord : '' }
 
-    onFormSubmit = (e) => {
-        e.preventDefault();
-        // console.log(this.state.searchWord);
-        this.props.onHit(this.state.searchWord);
-    }
-
     render(){
         return (
             <div className="ui segment">

@@ -50,7 +50,7 @@ const styles = theme => ({
 })
 
 
-class Contact extends React.Component {
+class Post extends React.Component {
 
     handleSubmit = (event) => {
         // make a network call somewhere
@@ -65,16 +65,28 @@ class Contact extends React.Component {
             <div className={classNames(classes.bgLight, classes.content, this.props.sidebarReducer.isSidebarOpen? classes.contentShift : '')}>
                 <div className="formContainer">
                     <Card>
-                        <CardHeader 
-                            title="Get In Touch" 
-                            subheader="My inbox is always open."
-                        />
+                        <CardHeader title="Post a Note" />
 
                         <form className="EnterForm" onSubmit={this.handleSubmit}>
                             <TextField 
+                                id="1"
+                                label="ID"
+                                defaultValue="dchoe"
+                                margin="normal"
+                                required={true}
+                            />
+                            <TextField 
+                                id="2"
+                                label="Date"
+                                type="datetime-local"
+                                defaultValue={new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]}
+                                margin="normal"
+                                required={true}
+                            />
+                            <TextField 
                                 id="3"
-                                label="Your Email"
-                                defaultValue="Enter Your Email"
+                                label="Title"
+                                defaultValue="Enter Title"
                                 margin="normal"
                                 variant="outlined"
                                 required={true}
@@ -91,7 +103,15 @@ class Contact extends React.Component {
                                 required={true}
                                 fullWidth={true}
                             />
+                            <TextField 
+                                id="5"
+                                label="Tags"
+                                margin="normal"
+                                fullWidth={true}
+                            />
+
                             <Button variant="standard" color="primary" type="submit">Submit</Button>
+                            <Button variant="standard" color="secondary">Cancel</Button>
                         </form>
                     </Card>
                 </div>
@@ -112,4 +132,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(withStyles(styles, { withTheme: true })(Contact)));
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(withStyles(styles, { withTheme: true })(Post)));

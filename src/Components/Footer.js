@@ -9,7 +9,7 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const styles = theme => ({
     root: {
@@ -66,15 +66,17 @@ class Footer extends React.Component {
         const { classes } = this.props;
 
         return (
-            <div className={classNames(classes.bgLight, classes.content, this.props.mobileOpen? classes.contentShift : '')}>
-                © 2019 dchoe, Designed & Built by Dan Choe
+            <div className={classNames("tempbox", classes.bgLight, classes.content, this.props.mobileOpen? classes.contentShift : '')}>
+                <div className="center">
+                    © 2019 dchoe, Designed & Built by Dan Choe
+                </div>
 
                 {/* <ul>
                     <i class="fab fa-github"></i>
                     <i class="fab fa-linkedin"></i>
                 </ul> */}
                 
-                <div>
+                <div className="rightMost">
                     <Icon className={classNames('fab fa-github')} />
                     <Icon className={classNames('fab fa-linkedin')} />
                 </div>

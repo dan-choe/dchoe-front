@@ -6,7 +6,7 @@ import { withStyles, withTheme } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const styles = theme => ({
     root: {
@@ -53,9 +53,12 @@ class Page1 extends React.Component {
     render(){
 
         const { classes } = this.props;
+        
+        console.log("Page1 state", this.state);
+        console.log("Page1 props", this.props);
 
         return (
-            <div className={classNames(classes.bgLight, classes.content, this.props.mobileOpen? classes.contentShift : '')}>
+            <div className={classNames(classes.bgLight, classes.content, this.props.sidebarReducer.isSidebarOpen? classes.contentShift : '')}>
                 <Typography paragraph>
                     <h4>Hi, my name is</h4>
                     <h1>Dan Choe.</h1>

@@ -54,5 +54,21 @@ export default {
     },
     typography: {
         useNextVariants: true,
-    }
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+          ].join(','),
+        h6: {
+            fontSize: '1.0rem',
+            color: '#000',
+        },
+    },
 }

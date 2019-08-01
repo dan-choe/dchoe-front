@@ -9,8 +9,11 @@ import Dark from '../themes/Dark';
 
 import Header from './Header';
 import Page1 from './Page1';
-import Page2 from './Page2';
 import Footer from './Footer';
+
+import NoteList from './Notes/List';
+import NotePost from './Notes/Post';
+import NoteView from './Notes/View';
 
 import About from './About';
 import Experience from './Experience';
@@ -33,11 +36,6 @@ const routes = [
         path: "/page1",
         sidebar: Page1,
         main: () => <div>Page1</div>
-    },
-    {
-        path: "/page2",
-        sidebar: Page2,
-        main: () => <div>Page2</div>
     },
     {
         path: "/user/:username",
@@ -64,6 +62,21 @@ const routes = [
         sidebar: Contact,
         main: () => <div>Contact</div>
     },
+    {
+        path: "/Notes/List",
+        sidebar: NoteList,
+        main: () => <div>Contact</div>
+    },
+    {
+        path: "/Notes/Post",
+        sidebar: NotePost,
+        main: () => <div>Contact</div>
+    },
+    {
+        path: "/Notes/View",
+        sidebar: NoteView,
+        main: () => <div>Contact</div>
+    },
 ];
 
 
@@ -85,7 +98,7 @@ class App extends React.Component {
                                     />
                                 ))
                             }
-                            <Route path="/page2" render={()=> <Page2 theme='0' />} />
+                            {/* <Route path="/page2" render={()=> <Page2 theme='0' />} /> */}
                         </div>
                         <Footer />
                     </div>

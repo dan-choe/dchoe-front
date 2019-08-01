@@ -1,5 +1,5 @@
-
 import jsonPlaceholder from '../API/jsonPlaceholder';
+import dataLoader from '../API/dataLoader';
 import _ from 'lodash';
 
 
@@ -10,6 +10,13 @@ export const toggle_theme = theme => {
     }
 }
 
+export const toggle_sidebar = status => {
+    return {
+        type: 'TOGGLE_SIDEBAR',
+        payload: status
+    }
+}
+
 
 export const selectSong = song => {
     return {
@@ -17,6 +24,17 @@ export const selectSong = song => {
         payload: song
     };
 };
+
+export const fetchNotes = () => {
+   return async dispatch => {
+        const response = await dataLoader.get('/posts');
+
+        dispatch( {
+            type: 'FETCH_POSTS',
+            payload: response.data
+        })
+    }    
+}
 
 export const fetchPosts = () => {
 
