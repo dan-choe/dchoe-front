@@ -1,4 +1,3 @@
-import jsonPlaceholder from '../API/jsonPlaceholder';
 import dataLoader from '../API/dataLoader';
 import _ from 'lodash';
 
@@ -25,16 +24,16 @@ export const selectSong = song => {
     };
 };
 
-export const fetchNotes = () => {
-   return async dispatch => {
-        const response = await dataLoader.get('/posts');
-
-        dispatch( {
-            type: 'FETCH_POSTS',
-            payload: response.data
-        })
-    }    
-}
+// localhost:8080/notes/page?page=1&page-size=2
+// export const fetchNotes = (page=1, page_size=1) => {
+//    return async dispatch => {
+//         const response = await dataLoader.get(`/notes/page?page=${page}&page-size=${page_size}`);
+//         dispatch( {
+//             type: 'FETCH_NOTES',
+//             payload: response.data
+//         })
+//     }    
+// }
 
 export const fetchPosts = () => {
 
@@ -47,7 +46,7 @@ export const fetchPosts = () => {
     //     })
     // }    
     return async dispatch => {
-        const response = await jsonPlaceholder.get('/posts');
+        const response = await dataLoader.get('/posts');
 
         dispatch( {
             type: 'FETCH_POSTS',
@@ -68,7 +67,7 @@ export const fetchPosts = () => {
 export const selectPost = () => {
 
     return function(dispatch, getState) {
-        const promise = jsonPlaceholder.get('/posts');
+        const promise = dataLoader.get('/posts');
 
         return {
             type: 'SELECT_POST',
@@ -90,7 +89,7 @@ export const selectPost = () => {
 export const fetchUser = id => dispatch => _fetchUser(id, dispatch);
 
 const _fetchUser = _.memoize(async (id, dispatch) => {
-    const response = await jsonPlaceholder.get(`/users/${id}`);
+    const response = await dataLoader.get(`/users/${id}`);
 
     dispatch( {
         type: 'FETCH_USER',

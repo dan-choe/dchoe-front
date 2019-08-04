@@ -192,8 +192,7 @@ const styles = theme => ({
 
 
 class Header extends React.Component {
-    
-    
+
     state = {
         open: false,
         mobileOpen: false,

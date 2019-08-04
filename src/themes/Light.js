@@ -71,4 +71,16 @@ export default {
             color: '#000',
         },
     },
+    overrides: {
+        MuiIconButton: {
+          root: {
+            padding: 0,
+            '&:hover': {
+              backgroundColor: "$labelcolor",
+            }
+          }
+        }
+    },
+    
+   
 }
