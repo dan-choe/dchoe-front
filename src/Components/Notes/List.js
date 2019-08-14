@@ -12,8 +12,9 @@ import CardHeader  from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import ArrowLeftIcon from '@material-ui/icons/ChevronLeft';
-import ArrowRightIcon from '@material-ui/icons/ChevronRight';
+// import ArrowLeftIcon from '@material-ui/icons/ChevronLeft';
+// import ArrowRightIcon from '@material-ui/icons/ChevronRight';
+import ReportIcon from '@material-ui/icons/Report';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import EditIcon from '@material-ui/icons/Edit';
 
@@ -29,6 +30,9 @@ import Chip from '@material-ui/core/Chip';
 
 import dataLoader from '../../API/dataLoader';
 import _ from 'lodash';
+import Pagination from './Pagination';
+
+
 // import { fetchNotes } from '../../actions';
 
 const drawerWidth = 200;
@@ -94,14 +98,16 @@ class List extends React.Component {
         super(props);
         this.state = {
             notes : [],
+            currentPage: 0,
             totalPages: 0,
             totalElements: 0,
+            pageSize: 5,
             selectedTags: []
         }
     }
 
     componentWillMount () {
-        this.fetchNotesBySize(1, 3);
+        this.fetchNotesBySize(this.state.currentPage, this.state.pageSize);
     }
 
     fetchData = async (path) => {
@@ -135,28 +141,32 @@ class List extends React.Component {
         console.log('[Note/List] Render Props: ', this.props);
         console.log('[Note/List] Render state: ', this.state.notes);
         
-        if(this.state.notes.length > 0){
+        if(this.state.notes && this.state.notes.length > 0){
             console.dir(this.state.notes[0]._id.toString())
         }
 
         return (
             <div className={classNames(classes.bgLight, classes.content, this.props.sidebarReducer.isSidebarOpen? classes.contentShift : '')}>             
-                <div>
-                    currentPage: {this.state.currentPage}/{this.state.totalPages} | Total : {this.state.totalElements}
-                </div>
-                <div>
-                {/* color="primary"  */}
-                    <IconButton aria-label="delete" className={classes.margin} size="small" variant="contained">
-                        <ArrowLeftIcon />
-                    </IconButton>
-                    <IconButton aria-label="delete" className={classes.margin} size="small" variant="contained">
-                        <ArrowRightIcon />
-                    </IconButton>
-                    <Link to={"/Notes/post/"}>
-                        <IconButton aria-label="delete" className={classes.margin} size="small" variant="contained">
-                            <EditIcon />
-                        </IconButton>
-                    </Link>
+
+                <ReportIcon /> Page is still in construction.
+                
+                <div>                  
+                    <div>
+                        <Pagination 
+                            pageSize={this.state.pageSize} 
+                            totalPages={this.state.totalPages} 
+                            currentPage={this.state.currentPage} 
+                            totalElements={this.state.totalElements}/>
+                    </div>
+
+
+                    <div>
+                        <Link to={"/Notes/post/"}>
+                            <IconButton aria-label="delete" className={classes.margin} size="small" variant="contained">
+                                <EditIcon />
+                            </IconButton>
+                        </Link>
+                    </div>
                 </div>
                 <div>
                 <FilterListIcon /> 
@@ -187,13 +197,13 @@ class List extends React.Component {
                 </div>
                 <div className="BlogListItems">
                     <ul>
-                        {this.state.notes.length > 0 && this.state.notes.map((note, key) => 
+                        {this.state.notes && this.state.notes.map((note, key) => 
                             <li>
                                 <Card>
-                                    <Link to={"/Notes/view/" + note._id}>
+                                    <Link to={`/Notes/View/${note._id}`}>
                                         <CardHeader 
                                             title={note.title}
-                                            // subheader={note.userId}
+                                            subheader={'@' + note.userName}
                                         />
                                     </Link>
                                     <CardContent>

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
@@ -9,6 +8,9 @@ import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
+
+import dataLoader from '../../API/dataLoader';
+
 
 const drawerWidth = 200;
 
@@ -52,12 +54,37 @@ const styles = theme => ({
 
 class Post extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            userId: '',
+            date: '',
+            title: '',
+            body: '',
+            tags: []
+        }
+    }
+
     handleSubmit = (event) => {
         // make a network call somewhere
         event.preventDefault();
-        console.log("submitted ");
+        this.postData(`/notes`);
     }
 
+    updateField = event => {
+        let target = event.target;
+        this.setState({[target.name]: target.value});
+    }
+
+    postData = async (path) => {
+        return await dataLoader.post(path, this.state).then(response => {
+            return response.data;
+        }).catch(error => {
+            console.log('postData error: ', error)
+            return ''
+        });
+    }
+    
     render(){
         const { classes } = this.props;
     
@@ -70,6 +97,7 @@ class Post extends React.Component {
                         <form className="EnterForm" onSubmit={this.handleSubmit}>
                             <TextField 
                                 id="1"
+                                name="userId"
                                 label="ID"
                                 defaultValue="dchoe"
                                 margin="normal"
@@ -77,6 +105,7 @@ class Post extends React.Component {
                             />
                             <TextField 
                                 id="2"
+                                name="date"
                                 label="Date"
                                 type="datetime-local"
                                 defaultValue={new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]}
@@ -85,15 +114,18 @@ class Post extends React.Component {
                             />
                             <TextField 
                                 id="3"
+                                name="title"
                                 label="Title"
-                                defaultValue="Enter Title"
                                 margin="normal"
                                 variant="outlined"
                                 required={true}
                                 fullWidth={true}
+                                value={this.state.title}
+                                onChange={e => this.updateField(e)}
                             />
                             <TextField 
                                 id="4"
+                                name="body"
                                 label="Content"
                                 multiline={true}
                                 rows={10}
@@ -102,16 +134,20 @@ class Post extends React.Component {
                                 variant="outlined"
                                 required={true}
                                 fullWidth={true}
+                                value={this.state.body}
+                                onChange={e => this.updateField(e)}
                             />
                             <TextField 
                                 id="5"
+                                name="tags"
                                 label="Tags"
                                 margin="normal"
                                 fullWidth={true}
+                                onChange={e => this.updateField(e)}
                             />
 
-                            <Button variant="standard" color="primary" type="submit">Submit</Button>
-                            <Button variant="standard" color="secondary">Cancel</Button>
+                            <Button variant="text" color="secondary" type="submit">Submit</Button>
+                            <Button variant="text" color="secondary">Cancel</Button>
                         </form>
                     </Card>
                 </div>

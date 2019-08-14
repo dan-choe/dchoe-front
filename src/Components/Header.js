@@ -43,6 +43,7 @@ import Divider from '@material-ui/core/Divider';
 import logo_bk from '../assets/logo-bk.png';
 import logo_w from '../assets/logo-w.png';
 import { toggle_theme, toggle_sidebar } from '../actions';
+import resumeFile from '../assets/DanChoe-Resume.pdf';
 
 const drawerWidth = 200;
 
@@ -240,7 +241,7 @@ class Header extends React.Component {
                 </List>
                 <Divider />
                 <List>
-                {['Notes/List', 'Notes/View', 'Notes/Post'].map((text, index) => (
+                {['Notes/List'].map((text, index) => (
                     <Link to={"/" + text}>
                         <ListItem button key={text}>
                         <ListItemIcon className={classes.primaryLight}>{index === 0 ? <InboxIcon style={{ fontSize: 20 }}/> : <FolderIcon style={{ fontSize: 20 }} />}</ListItemIcon>
@@ -259,7 +260,7 @@ class Header extends React.Component {
                 <AppBar position="static" className={
                     // classNames(classes.appBar, this.state.mobileOpen? classes.appBarShift : '')}>
                     classNames(classes.appBar, this.props.sidebarReducer.isSidebarOpen? classes.appBarShift : '')}>
-                    <Toolbar variant="dense" className={classes.toolbar}>
+                    <Toolbar variant="dense" color="orange" className={classes.toolbar}>
                       
                         <IconButton
                         color="inherit"
@@ -339,9 +340,11 @@ class Header extends React.Component {
                             {/* <IconButton color="inherit">
                                 <AccountCircle />
                             </IconButton> */}
-                            <Button variant="outlined" color="secondary">
-                                Resume
-                            </Button>
+                            <Link to={resumeFile} target="_blank" download>
+                                <Button variant="outlined" color="secondary">
+                                    Resume
+                                </Button>
+                            </Link>
                         </div>
 
                         <Icon className={classNames('far fa-sun ') + classes.primaryLight} />

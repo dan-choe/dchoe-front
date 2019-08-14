@@ -94,18 +94,7 @@ class About extends React.Component {
                             </div>
                             <div className={classes.profileBody}>
                                 <Typography variant="body1">
-                                    I'm a front end software engineer who enjoys building things that live on the internet. 
-                                    I develop exceptional websites and web apps that provide intuitive, 
-                                    pixel-perfect user interfaces while being clean and efficient behind the scenes.
-                                    Shortly after graduating from Northeastern University, 
-                                    I joined the engineering team at Upstatement where I get to work on 
-                                    a variety of interesting projects and improve my web development skillset on a daily basis.
-                                    I'm a front end software engineer who enjoys building things that live on the internet. 
-                                    I develop exceptional websites and web apps that provide intuitive, 
-                                    pixel-perfect user interfaces while being clean and efficient behind the scenes.
-                                    Shortly after graduating from Northeastern University, 
-                                    I joined the engineering team at Upstatement where I get to work on 
-                                    a variety of interesting projects and improve my web development skillset on a daily basis.
+                                    bla bla
                                     <br/>
                                     <br/>
                                     Here's a few things I'm experienced with:

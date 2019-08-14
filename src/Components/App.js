@@ -73,7 +73,7 @@ const routes = [
         main: () => <div>Contact</div>
     },
     {
-        path: "/Notes/View",
+        path: "/Notes/View/:id",
         sidebar: NoteView,
         main: () => <div>Contact</div>
     },

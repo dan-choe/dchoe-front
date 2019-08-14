@@ -28,7 +28,11 @@ const styles = theme => ({
     bgLight: {
         backgroundColor: theme.palette.primary.main
     },
-
+    spacing: {
+        width: '60px',
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
     content: {
         display: 'flex',
         flexGrow: 1,
@@ -77,13 +81,11 @@ class Footer extends React.Component {
                 </ul> */}
                 
                 <div className="rightMost">
-                    <Icon className={classNames('fab fa-github')} />
-                    <Icon className={classNames('fab fa-linkedin')} />
+                    <div className={classes.spacing}>
+                        <a href="https://github.com/dan-choe" target="_blank"><Icon className={classNames('fab fa-github')} /></a>
+                        <a href="https://www.linkedin.com/in/danchoeny" target="_blank"><Icon className={classNames('fab fa-linkedin')} /></a>
+                    </div>
                 </div>
-
-                
-                
-
             </div>
         );
     }
