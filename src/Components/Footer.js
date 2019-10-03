@@ -26,7 +26,7 @@ const styles = theme => ({
         scale: .8
     },
     bgLight: {
-        backgroundColor: theme.palette.primary.main
+        // backgroundColor: theme.palette.primary.main
     },
     spacing: {
         width: '60px',

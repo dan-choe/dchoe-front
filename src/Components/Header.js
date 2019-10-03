@@ -72,7 +72,7 @@ const styles = theme => ({
         scale: .8
     },
     bgLight: {
-        backgroundColor: theme.palette.temp.main
+        // backgroundColor: theme.palette.temp.main
     },
 
     appBar: {

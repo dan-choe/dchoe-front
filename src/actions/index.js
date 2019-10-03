@@ -16,6 +16,17 @@ export const toggle_sidebar = status => {
     }
 }
 
+export const select_page = pageInfo => {
+    return {
+        type: 'SELECT_PAGE',
+        payload: pageInfo
+    };
+};
+
+
+
+
+
 
 export const selectSong = song => {
     return {

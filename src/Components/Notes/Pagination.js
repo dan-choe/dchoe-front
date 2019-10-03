@@ -1,15 +1,17 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 
-import IconButton from '@material-ui/core/IconButton';
+// import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import ArrowLeftIcon from '@material-ui/icons/ChevronLeft';
-import ArrowRightIcon from '@material-ui/icons/ChevronRight';
+// import ArrowLeftIcon from '@material-ui/icons/ChevronLeft';
+// import ArrowRightIcon from '@material-ui/icons/ChevronRight';
+
+import { select_page } from '../../actions';
 
 const styles = theme => ({
     root: {
@@ -28,6 +30,12 @@ const styles = theme => ({
 
 class Pagination extends React.Component {
 
+    select_page(pageId) {
+        this.props.select_page({
+            currentPage: pageId,
+            pageSize: this.props.totalPages
+        });
+    }
 
     render() {
         const { classes, totalPages, currentPage, pageSize, totalElements } = this.props;
@@ -36,7 +44,7 @@ class Pagination extends React.Component {
             let buttons = [];
             for(let i=0; i<totalPage; i++){
                 buttons.push(
-                    <Button key={i} aria-label="delete" className={currentPage === i ? classes.curPageButton : classes.defaultPageButton} size="small" variant="outlined">
+                    <Button id={i} key={i} aria-label="delete" className={currentPage === i ? classes.curPageButton : classes.defaultPageButton} size="small" variant="outlined" onClick={() => this.select_page(i)}>
                         {i}
                     </Button>
                 );
@@ -74,4 +82,19 @@ class Pagination extends React.Component {
     }
 }
 
-export default withTheme()(withStyles(styles, { withTheme: true })(Pagination));
+const mapStateToProps = state => {
+    return {
+        ...state, 
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        select_page: (pageInfo) => {
+            dispatch(select_page(pageInfo))
+        },
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(withStyles(styles, { withTheme: true })(Pagination)));

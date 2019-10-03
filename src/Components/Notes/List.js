@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { withStyles, withTheme } from '@material-ui/core/styles';
+// import { ThemeProvider, useTheme, makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
+// import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
+// import { withStyles, withTheme } from '@material-ui/core/styles';
+import { withTheme } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 import Card from '@material-ui/core/Card';
@@ -37,7 +42,7 @@ import Pagination from './Pagination';
 
 const drawerWidth = 200;
 
-const styles = theme => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexGrow: 1
@@ -77,7 +82,7 @@ const styles = theme => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
-})
+}));
 
 const names = [
     'Oliver Hansen',
@@ -92,160 +97,148 @@ const names = [
     'Kelly Snyder',
   ];
 
-class List extends React.Component {
-    
-    constructor(props) {
-        super(props);
-        this.state = {
-            notes : [],
-            currentPage: 0,
-            totalPages: 0,
-            totalElements: 0,
-            pageSize: 5,
-            selectedTags: []
-        }
-    }
-
-    componentWillMount () {
-        this.fetchNotesBySize(this.state.currentPage, this.state.pageSize);
-    }
-
-    fetchData = async (path) => {
-        return await dataLoader.get(path).then(response => {
-            return response.data;
-        }).catch(error => {
-            return []
-        });
-    }
-
-    fetchNotesBySize = async (page=1, page_size=1) => {
-        let path = `/notes/page?page=${page}&page-size=${page_size}`
-        const reponse = await this.fetchData(path);
-        console.log('fetchNotesBySize: ', reponse)
-        this.setState({notes: reponse.content, currentPage: reponse.number, totalPages: reponse.totalPages, totalElements: reponse.totalElements})
-        return reponse
-    }  
-
-    handleDelete = data => () => {
-        alert('Why would you want to delete React?! :)');
-        return;
-    }
-
-    handleChangeMultiple = (event) => {
-        this.setState({selectedTags: event.target.value});
-    }
-    
-
-    render(){
-        const { classes } = this.props;
-        console.log('[Note/List] Render Props: ', this.props);
-        console.log('[Note/List] Render state: ', this.state.notes);
-        
-        if(this.state.notes && this.state.notes.length > 0){
-            console.dir(this.state.notes[0]._id.toString())
-        }
-
-        return (
-            <div className={classNames(classes.bgLight, classes.content, this.props.sidebarReducer.isSidebarOpen? classes.contentShift : '')}>             
-
-                <ReportIcon /> Page is still in construction.
-                
-                <div>                  
-                    <div>
-                        <Pagination 
-                            pageSize={this.state.pageSize} 
-                            totalPages={this.state.totalPages} 
-                            currentPage={this.state.currentPage} 
-                            totalElements={this.state.totalElements}/>
-                    </div>
-
-
-                    <div>
-                        <Link to={"/Notes/post/"}>
-                            <IconButton aria-label="delete" className={classes.margin} size="small" variant="contained">
-                                <EditIcon />
-                            </IconButton>
-                        </Link>
-                    </div>
-                </div>
-                <div>
-                <FilterListIcon /> 
-                {/* <InputBase className={classes.input} placeholder="Filter" inputProps={{ 'aria-label': 'Filter' }} /> */}
-
-                <FormControl className={classes.margin}>
-                    {/* <InputLabel htmlFor="age-customized-native-simple">Age</InputLabel> */}
-                    <Select
-                        multiple
-                        value={this.state.selectedTags}
-                        onChange={this.handleChangeMultiple}
-                        renderValue={selected => {
-                            if (selected.length === 0) {
-                            return <em>Placeholder</em>;
-                            }
-                            return selected.join(', ');
-                        }}
-                    >
-                        {names.map(name => (
-                            <MenuItem key={name} value={name}>
-                                <Checkbox checked={this.state.selectedTags.indexOf(name) > -1} />
-                                <ListItemText primary={name} />
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-
-                </div>
-                <div className="BlogListItems">
-                    <ul>
-                        {this.state.notes && this.state.notes.map((note, key) => 
-                            <li>
-                                <Card>
-                                    <Link to={`/Notes/View/${note._id}`}>
-                                        <CardHeader 
-                                            title={note.title}
-                                            subheader={'@' + note.userName}
-                                        />
-                                    </Link>
-                                    <CardContent>
-                                        <Typography component="p">
-                                            {note.body}
-                                        </Typography>
-                                        
-                                        <div className={classes.chips}>
-                                            {note.tags.map((tag, key) =>
-                                                <Chip
-                                                    key={key}
-                                                    label={tag}
-                                                    // onDelete={this.handleDelete("1")}
-                                                    className={classes.chip}
-                                                    variant="outlined"
-                                                    style={{ height: '24px' }}
-                                                />
-                                            )}
-                                        </div>
-                                    </CardContent>
-                                    {/* <CardActions>
-                                        <Button size="small">Learn More</Button>
-                                    </CardActions> */}
-                                </Card>
-                            </li>
-                        )}
-                    </ul>
-                </div>
-            </div>
-        );
-    }
+const fetchData = async (path) => {
+    return await dataLoader.get(path).then(response => {
+        return response.data;
+    }).catch(error => {
+        return []
+    });
 }
 
+const fetchNotesBySize = async (page=1, page_size=1) => {
+    let path = `/notes/page?page=${page}&page-size=${page_size}`
+    const reponse = await this.fetchData(path);
+    console.log('fetchNotesBySize: ', reponse)
+    this.setState({notes: reponse.content, currentPage: reponse.number, totalPages: reponse.totalPages, totalElements: reponse.totalElements})
+    return reponse
+}
 
-// <Link to={"/" + text}>
-//                         <ListItem button key={text}>
-//                         <ListItemIcon className={classes.primaryLight}>
-//                             {this.getIcon(index)}
-//                         </ListItemIcon>
-//                         <ListItemText primary={text} classes={{primary: classes.primaryLight }}/>
-//                         </ListItem>
-//                     </Link>
+function List() {
+
+    const classes = useStyles();
+    // const { classes } = this.props;
+
+    // console.log('[Note/List] Render Props: ', this.props);
+    // console.log('[Note/List] Render state: ', this.state.notes);
+
+    const [notes, setNotes] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [pageSize, setPageSize] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalElements, setTotalElements] = useState(0);
+    const [selectedTags, setSelectedTags] = useState([]);
+    
+    /*
+        useEffect runs on every render, 
+        it is a combination of componentDidUpdate, componentDidMount and ComponentWillUnmount.
+    */
+
+    useEffect(() => {
+        console.log("componentDidMount");
+        // if (componentDidUpdate & (currentPage or pageSize changed))
+        this.fetchNotesBySize(currentPage, pageSize);
+        return () => {
+            console.log("componentWillUnmount");
+        };
+    }, [currentPage, pageSize]);
+
+    // handleDelete = data => () => {
+    //     alert('Why would you want to delete React?! :)');
+    //     return;
+    // }
+
+    // handleChangeMultiple = (event) => {
+    //     setSelectedTags(event.target.value);
+    // }
+
+    return (
+        // <div className={classNames(classes.bgLight, classes.content, this.props.sidebarReducer.isSidebarOpen? classes.contentShift : '')}>             
+        <div className={classNames(classes.bgLight, classes.content)}>             
+
+            {/* <ReportIcon /> Page is still in construction. */}
+            
+            <div>                  
+                <div>
+                    <Pagination 
+                        pageSize={pageSize} 
+                        totalPages={totalPages} 
+                        currentPage={currentPage} 
+                        totalElements={totalElements}/>
+                </div>
+
+
+                <div>
+                    <Link to={"/Notes/post/"}>
+                        <IconButton aria-label="delete" className={classes.margin} size="small" variant="contained">
+                            <EditIcon />
+                        </IconButton>
+                    </Link>
+                </div>
+            </div>
+            <div>
+            <FilterListIcon /> 
+            {/* <InputBase className={classes.input} placeholder="Filter" inputProps={{ 'aria-label': 'Filter' }} /> */}
+
+            <FormControl className={classes.margin}>
+                {/* <InputLabel htmlFor="age-customized-native-simple">Age</InputLabel> */}
+                <Select
+                    multiple
+                    value={selectedTags}
+                    // onChange={this.handleChangeMultiple}
+                    renderValue={selected => {
+                        if (selected.length === 0) {
+                        return <em>Placeholder</em>;
+                        }
+                        return selected.join(', ');
+                    }}
+                >
+                    {names.map(name => (
+                        <MenuItem key={name} value={name}>
+                            <Checkbox checked={selectedTags.indexOf(name) > -1} />
+                            <ListItemText primary={name} />
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+
+            </div>
+            <div className="BlogListItems">
+                <ul>
+                    {notes && notes.map((note, key) => 
+                        <li key={key}>
+                            <Card>
+                                <Link to={`/Notes/View/${note._id}`}>
+                                    <CardHeader 
+                                        title={note.title}
+                                        subheader={'@' + note.userName}
+                                    />
+                                </Link>
+                                <CardContent>
+                                    <Typography component="p">
+                                        {note.body}
+                                    </Typography>
+                                    
+                                    <div className={classes.chips}>
+                                        {note.tags.map((tag, key) =>
+                                            <Chip
+                                                key={key}
+                                                label={tag}
+                                                // onDelete={this.handleDelete("1")}
+                                                className={classes.chip}
+                                                variant="outlined"
+                                                style={{ height: '24px' }}
+                                            />
+                                        )}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </li>
+                    )}
+                </ul>
+            </div>
+        </div>
+    );
+}
 
 const mapStateToProps = state => {
     console.log('[Note/List] mapStateToProps', state)
@@ -262,4 +255,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(withStyles(styles, { withTheme: true })(List)));
+// export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(withStyles(styles, { withTheme: true })(List)));
+// export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(List));
+// export default withStyles(useStyles, { withTheme: true })(List);
+export default List;

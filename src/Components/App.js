@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+// import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import Light from '../themes/Light';
@@ -83,7 +85,8 @@ const routes = [
 class App extends React.Component {
     render() {
         return (
-            <MuiThemeProvider theme={this.props.isThemeLight? theme_light : theme_dark}>
+            // <MuiThemeProvider theme={this.props.isThemeLight? theme_light : theme_dark}>
+            <ThemeProvider theme={this.props.isThemeLight? theme_light : theme_dark}>
                 <Router>
                     <div>
                         <Header />
@@ -103,7 +106,7 @@ class App extends React.Component {
                         <Footer />
                     </div>
                 </Router>              
-            </MuiThemeProvider>
+            </ThemeProvider >
         );
     }
 }

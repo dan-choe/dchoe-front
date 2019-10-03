@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import dataLoader from '../../API/dataLoader';
 import _ from 'lodash';
 
+import { Markdown } from 'react-showdown';
+
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
@@ -91,9 +93,8 @@ class View extends React.Component {
 
 
     render(){
-
         const { classes } = this.props;
-
+      
         const getNote = () => {
             return (
                 <div>
@@ -103,9 +104,10 @@ class View extends React.Component {
                     </div>
                     
                     <div className="content">
-                        <Typography variant="body1" component="p">
-                            {this.state.note.body}
-                        </Typography>
+                        
+                        {/* <Typography variant="body1" component="p"> */}
+                            <Markdown markup={this.state.note.body}  />
+                        {/* </Typography> */}
                     </div>
                     <div className="tags">
                         <Chip

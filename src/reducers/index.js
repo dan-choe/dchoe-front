@@ -3,6 +3,7 @@ import postReducer from './PostReducer';
 import userReducer from './userReducer';
 import themeReducer from './themeReducer';
 import sidebarReducer from './sidebarReducer';
+import selectPage from './SelectPage';
 
 const tempReducer = (state = [], action) => {
     return state;
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     users: userReducer,
     themeReducer: themeReducer,
     sidebarReducer: sidebarReducer,
+    selectPage
 });
 
 export default rootReducer;

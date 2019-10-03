@@ -78,6 +78,10 @@ body {
     margin-bottom: 20px;
 }
 
+.blogView .content {
+    margin-bottom: 20px;
+}
+
 * {box-sizing: border-box}
 
 /* Style the tab */
